@@ -86,10 +86,6 @@ class ImsCommandCommand extends ImsBaseCommand {
 }
 
 ImsCommandCommand.description = `
-This is a raw and low level IMS API call command taking the IMS API
-path as the first argument and any additional request parameters
-as optional additional arguments.
-
 The API result is printed as an object if successful. If the call
 fails, the error message is returned as an error.
 `
