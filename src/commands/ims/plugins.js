@@ -11,20 +11,37 @@ governing permissions and limitations under the License.
 */
 
 const { flags } = require('@oclif/command')
-const ImsBaseCommand = require('../../ims-base-command')
+const ImsBaseCommand = require('@adobe/aio-cli-plugin-auth/src/ims-base-command')
 
 class PluginsCommand extends ImsBaseCommand {
   async run () {
-    const { argv } = this.parse(PluginsCommand)
+    const { argv, flags } = this.parse(PluginsCommand)
     const { context } = require('@adobe/aio-lib-ims')
 
-    if (argv && argv.length > 0) {
-      // TODO: check each plugin for whether it can be require-d
-      // TODO: check each plugin for whether it implements the contract
-      // TODO: have option to omit the check(s)
+    if ((argv && argv.length > 0) || flags.force) {
       await context.setPlugins(argv)
     } else {
-      this.printObject(await context.getPlugins())
+      await context.getPlugins()
+        .then(plugins => {
+          if (plugins instanceof Array) {
+            if (flags.module) {
+              return plugins.map(pluginLocation => {
+                try {
+                  const moduleFile = require.resolve(pluginLocation, { paths: require.main.paths })
+                  return { plugin: pluginLocation, moduleFile }
+                } catch (error) {
+                  return { plugin: pluginLocation, error: `Failed to resolve: ${JSON.stringify(error.code)}` }
+                }
+              })
+            } else {
+              return plugins
+            }
+          } else {
+            return Promise.reject(new Error(`Configured plugins '${JSON.stringify(plugins)}' must be an array but is a ${typeof plugins}`))
+          }
+        })
+        .then(plugins => this.printObject(plugins))
+        .catch(error => this.error(error))
     }
 
     const debugCore = require('debug')
@@ -41,14 +58,26 @@ The following options exist for this command:
 * Print the current list of token creation plugins
 * Update the list of token creation plugins
 
-Note: If provoding a list of plugis to configure, they are not currently
+Note: If providing a list of plugis to configure, they are not currently
 checked for existence or implementation of the correct contract.
+
+The list of plugins is returned as an array of module names unless the
+--modules flag indicates to also return the paths to the module files.
+With the --modules flag, the result is an array of objects with two
+properties:
+
+* plugin     -- Configured plugin name
+* moduleFile -- Absolute path of the file loaded for the plugin. This
+                property is only returned if the plugin can be resolved.
+* error      -- Reason for not being able to load the plugin. This
+                property is only returned if the plugin cannot be resolved.
 `
 
 PluginsCommand.flags = {
   ...ImsBaseCommand.flags,
 
-  force: flags.boolean({ char: 'f', description: 'Force configuring the list of plugins without checking for existence or contract' })
+  force: flags.boolean({ char: 'f', description: 'Force configuring the list of plugins without checking for existence or contract' }),
+  module: flags.boolean({ char: 'm', description: 'Show the module file loaded for each plugin' })
 }
 
 // just collect all arguments not being flags into the argv array and
