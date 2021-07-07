@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 */
 
 const { flags } = require('@oclif/command')
-const ImsBaseCommand = require('./ims-base-command')
+const ImsBaseCommand = require('@adobe/aio-cli-plugin-auth/src/ims-base-command')
 
 class ImsCommandCommand extends ImsBaseCommand {
   async getApi () {

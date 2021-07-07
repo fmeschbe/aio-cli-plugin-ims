@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../src/ims-command-command')
-const BaseCommand = require('../src/ims-base-command')
+const BaseCommand = require('@adobe/aio-cli-plugin-auth/src/ims-base-command')
 const ims = require('@adobe/aio-lib-ims')
 
 jest.mock('@adobe/aio-lib-ims')

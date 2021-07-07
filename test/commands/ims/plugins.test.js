@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/ims/plugins')
-const BaseCommand = require('../../../src/ims-base-command')
+const BaseCommand = require('@adobe/aio-cli-plugin-auth/src/ims-base-command')
 const { context } = require('@adobe/aio-lib-ims')
 const config = require('@adobe/aio-lib-core-config')
 const { PLUGINS, IMS, CONFIG } = require('@adobe/aio-lib-ims/src/context')
