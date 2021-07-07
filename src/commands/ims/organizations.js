@@ -15,7 +15,7 @@ const ImsCommandCommand = require('../../ims-command-command')
 class OrganizationsCommand extends ImsCommandCommand {
   async getApi () {
     this.debug('get::api()')
-    return '/ims/organizations'
+    return '/ims/organizations/v6'
   }
 }
 
