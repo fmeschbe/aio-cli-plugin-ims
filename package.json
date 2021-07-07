@@ -5,6 +5,7 @@
   "author": "Adobe",
   "bugs": "https://github.com/adobe/aio-cli-plugin-ims/issues",
   "dependencies": {
+    "@adobe/aio-lib-core-config": "^2.0.0",
     "@adobe/aio-lib-ims": "^4.2.2",
     "@adobe/aio-cli-plugin-auth": "^2.4.1",
     "@oclif/command": "^1.5.13",
@@ -14,7 +15,6 @@
     "js-yaml": "^3.13.0"
   },
   "devDependencies": {
-    "@adobe/aio-lib-core-config": "^2.0.0",
     "@adobe/eslint-config-aio-lib-config": "^1.2.0",
     "@oclif/dev-cli": "^1.22.0",
     "chalk": "^4.0.0",
@@ -30,7 +30,7 @@
     "execa": "^4.0.0",
     "globby": "^10.0.1",
     "jest": "^24",
-    "jest-junit": "^9.0.0",
+    "jest-junit": "^10.0.0",
     "stdout-stderr": "^0.1.9"
   },
   "engines": {
