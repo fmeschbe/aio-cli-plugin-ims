@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const ImsBaseCommand = require('./ims-base-command')
 
 class ImsCommandCommand extends ImsBaseCommand {
@@ -37,7 +37,7 @@ class ImsCommandCommand extends ImsBaseCommand {
   }
 
   async run () {
-    const { args, flags } = this.parse(this.constructor)
+    const { args, flags } = await this.parse(this.constructor)
 
     const data = {}
     if (flags.data) {
@@ -98,11 +98,15 @@ ImsCommandCommand.parameterParser = input => input.split('=')
 ImsCommandCommand.flags = {
   ...ImsBaseCommand.flags,
 
-  data: flags.string({ char: 'd', description: 'Request parameter in the form of name=value. Repeat for multiple parameters', multiple: true, parse: ImsCommandCommand.parameterParser })
+  data: Flags.string({
+    char: 'd',
+    description:
+      'Request parameter in the form of name=value. Repeat for multiple parameters',
+    multiple: true,
+    parse: ImsCommandCommand.parameterParser
+  })
 }
 
-ImsCommandCommand.args = [
-  ...ImsBaseCommand.args
-]
+ImsCommandCommand.args = { ...ImsBaseCommand.args }
 
 module.exports = ImsCommandCommand

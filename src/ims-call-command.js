@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags, Args } = require('@oclif/core')
 const ImsBaseCommand = require('./ims-base-command')
 
 class ImsCallCommand extends ImsBaseCommand {
@@ -20,7 +20,7 @@ class ImsCallCommand extends ImsBaseCommand {
   }
 
   async run () {
-    const { args, flags } = this.parse(this.constructor)
+    const { args, flags } = await this.parse(this.constructor)
 
     if (!args.api || !args.api.startsWith('/ims/')) {
       this.error(`Invalid IMS API '${args.api}' - must start with '/ims/'`, { exit: 1 })
@@ -77,13 +77,23 @@ ImsCallCommand.parameterParser = input => input.split('=')
 ImsCallCommand.flags = {
   ...ImsBaseCommand.flags,
 
-  data: flags.string({ char: 'd', description: 'Request parameter in the form of name=value. Repeat for multiple parameters', multiple: true, parse: ImsCallCommand.parameterParser })
+  data: Flags.string({
+    char: 'd',
+    description:
+      'Request parameter in the form of name=value. Repeat for multiple parameters',
+    multiple: true,
+    parse: ImsCallCommand.parameterParser
+  })
 }
 
-ImsCallCommand.args = [
+ImsCallCommand.args = {
   ...ImsBaseCommand.args,
 
-  { name: 'api', description: 'The IMS API to call, for example: /ims/profile/v1', required: true }
-]
+  api: Args.string({
+    name: 'api',
+    description: 'The IMS API to call, for example: /ims/profile/v1',
+    required: true
+  })
+}
 
 module.exports = ImsCallCommand

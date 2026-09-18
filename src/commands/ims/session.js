@@ -16,7 +16,7 @@ const { URL } = require('url')
 class SessionCommand extends ImsCommandCommand {
   async _getSessionLink () {
     const { getTokenData, getToken } = require('@adobe/aio-lib-ims')
-    const { flags } = this.parse(this.constructor)
+    const { flags } = await this.parse(this.constructor)
 
     return getToken(flags.ctx)
       .then(token => getTokenData(token))
@@ -45,8 +45,6 @@ SessionCommand.flags = {
   ...ImsCommandCommand.flags
 }
 
-SessionCommand.args = [
-  ...ImsCommandCommand.args
-]
+SessionCommand.args = { ...ImsCommandCommand.args }
 
 module.exports = SessionCommand

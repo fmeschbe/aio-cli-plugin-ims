@@ -11,8 +11,8 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/ims/index')
-const { Command } = require('@oclif/command')
-const HHelp = require('@oclif/plugin-help').default
+const { Command } = require('@oclif/core')
+const HHelp = require('@oclif/core').Help
 
 afterEach(() => {
   jest.resetAllMocks()

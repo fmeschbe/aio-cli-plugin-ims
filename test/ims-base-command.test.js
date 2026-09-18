@@ -68,7 +68,7 @@ test('init', async () => {
   await command.init()
 })
 
-test('printObject', () => {
+test('printObject', async () => {
   const foo = {
     foo: 'bar'
   }
@@ -76,24 +76,24 @@ test('printObject', () => {
   // hjson
   stdout.start() // clear any stdout logs
   command.argv = []
-  command.printObject(foo)
+  await command.printObject(foo)
   expect(hjson.stringify(hjson.parse(stdout.output))).toEqual(hjson.stringify(foo))
 
   // json
   stdout.start() // clear any stdout logs
   command.argv = ['--json']
-  command.printObject(foo)
+  await command.printObject(foo)
   expect(JSON.parse(stdout.output)).toEqual(foo)
 
   // yaml
   stdout.start() // clear any stdout logs
   command.argv = ['--yaml']
-  command.printObject(foo)
+  await command.printObject(foo)
   expect(stdout.output.trim()).toEqual('foo: bar')
 
   // empty object
   stdout.start() // clear any stdout logs
   command.argv = []
-  command.printObject({})
+  await command.printObject({})
   expect(stdout.output).toEqual('')
 })

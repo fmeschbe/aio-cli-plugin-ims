@@ -27,8 +27,8 @@ ProfileCommand.flags = {
   ...ImsCommandCommand.flags
 }
 
-ProfileCommand.args = [
+ProfileCommand.args = {
   ...ImsCommandCommand.args
-]
+}
 
 module.exports = ProfileCommand

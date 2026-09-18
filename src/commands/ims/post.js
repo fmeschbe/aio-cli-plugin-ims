@@ -27,8 +27,8 @@ PostCommand.flags = {
   ...ImsCallCommand.flags
 }
 
-PostCommand.args = [
+PostCommand.args = {
   ...ImsCallCommand.args
-]
+}
 
 module.exports = PostCommand

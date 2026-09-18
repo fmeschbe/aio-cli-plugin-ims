@@ -27,8 +27,8 @@ GetCommand.flags = {
   ...ImsCallCommand.flags
 }
 
-GetCommand.args = [
+GetCommand.args = {
   ...ImsCallCommand.args
-]
+}
 
 module.exports = GetCommand

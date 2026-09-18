@@ -27,8 +27,8 @@ OrganizationsCommand.flags = {
   ...ImsCommandCommand.flags
 }
 
-OrganizationsCommand.args = [
+OrganizationsCommand.args = {
   ...ImsCommandCommand.args
-]
+}
 
 module.exports = OrganizationsCommand
