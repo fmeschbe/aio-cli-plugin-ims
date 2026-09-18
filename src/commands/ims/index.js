@@ -21,23 +21,6 @@ class IndexCommand extends Command {
 
 IndexCommand.description = `IMS commands to login and logout.
 
-The main commands are ims:login to get or create an access token and
-ims:logout to invalidate an access token and thus log out from IMS.
-
-Logging in and out is based on configuration of which there may be
-multiple. Each set of configuration properties, called an IMS context,
-can be individually addressed by a label.
-
-Configuration for the IMS commands is stored in the "ims"
-configuration property. The special property "ims.config.current" contains the
-label of the current configuration which can be set using the
-"aio ims ctx -s <label>" command.
-
-Each set of properties in labeled IMS context configurations has
-configuration properties depending on the kind of access that is
-supported. The below example shows the configuration for OAuth2
-based (graphical SUSI) login.
-
 The "env" property is mandatory and designates the IMS environment
 used for authentication. Possible values are "stage" and "prod".
 If the property is missing or any other value, it defaults to "stage".
